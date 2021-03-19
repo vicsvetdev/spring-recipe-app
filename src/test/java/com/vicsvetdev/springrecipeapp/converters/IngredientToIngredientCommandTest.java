@@ -2,7 +2,6 @@ package com.vicsvetdev.springrecipeapp.converters;
 
 import com.vicsvetdev.springrecipeapp.commands.IngredientCommand;
 import com.vicsvetdev.springrecipeapp.model.Ingredient;
-import com.vicsvetdev.springrecipeapp.model.Recipe;
 import com.vicsvetdev.springrecipeapp.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class IngredientToIngredientCommandTest {
         //when
         IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
-        assertNull(ingredientCommand.getUnitOfMeasure());
+        assertNull(ingredientCommand.getUom());
         assertEquals(ID_VALUE, ingredientCommand.getId());
         // assertEquals(RECIPE, ingredientCommand.get);
         assertEquals(AMOUNT, ingredientCommand.getAmount());
@@ -70,8 +69,8 @@ public class IngredientToIngredientCommandTest {
         IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
         assertEquals(ID_VALUE, ingredientCommand.getId());
-        assertNotNull(ingredientCommand.getUnitOfMeasure());
-        assertEquals(UOM_ID, ingredientCommand.getUnitOfMeasure().getId());
+        assertNotNull(ingredientCommand.getUom());
+        assertEquals(UOM_ID, ingredientCommand.getUom().getId());
         assertEquals(AMOUNT, ingredientCommand.getAmount());
         assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }

@@ -3,7 +3,6 @@ package com.vicsvetdev.springrecipeapp.converters;
 import com.vicsvetdev.springrecipeapp.commands.IngredientCommand;
 import com.vicsvetdev.springrecipeapp.commands.UnitOfMeasureCommand;
 import com.vicsvetdev.springrecipeapp.model.Ingredient;
-import com.vicsvetdev.springrecipeapp.model.Recipe;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +43,7 @@ public class IngredientCommandToIngredientTest {
         ingredientCommand.setId(ID_VALUE);
         UnitOfMeasureCommand uomCommand = new UnitOfMeasureCommand();
         uomCommand.setId(UOM_ID);
-        ingredientCommand.setUnitOfMeasure(uomCommand);
+        ingredientCommand.setUom(uomCommand);
 
         //when
         Ingredient ingredient = converter.convert(ingredientCommand);
@@ -65,7 +64,7 @@ public class IngredientCommandToIngredientTest {
         ingredientCommand.setId(ID_VALUE);
         ingredientCommand.setAmount(AMOUNT);
         ingredientCommand.setDescription(DESCRIPTION);
-        ingredientCommand.setUnitOfMeasure(null);
+        ingredientCommand.setUom(null);
 
         //when
         Ingredient ingredient = converter.convert(ingredientCommand);
