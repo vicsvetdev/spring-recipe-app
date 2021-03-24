@@ -3,6 +3,7 @@ package com.vicsvetdev.springrecipeapp.services;
 import com.vicsvetdev.springrecipeapp.commands.RecipeCommand;
 import com.vicsvetdev.springrecipeapp.converters.RecipeCommandToRecipe;
 import com.vicsvetdev.springrecipeapp.converters.RecipeToRecipeCommand;
+import com.vicsvetdev.springrecipeapp.exceptions.NotFoundException;
 import com.vicsvetdev.springrecipeapp.model.Recipe;
 import com.vicsvetdev.springrecipeapp.repositories.RecipeRepository;
 import org.junit.Before;
@@ -50,6 +51,15 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
     }
 
     @Test

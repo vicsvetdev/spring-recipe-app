@@ -1,6 +1,7 @@
 package com.vicsvetdev.springrecipeapp.controllers;
 
 import com.vicsvetdev.springrecipeapp.commands.RecipeCommand;
+import com.vicsvetdev.springrecipeapp.exceptions.NotFoundException;
 import com.vicsvetdev.springrecipeapp.model.Recipe;
 import com.vicsvetdev.springrecipeapp.services.RecipeService;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetRecipe() throws Exception {
+    public void GetRecipeTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
@@ -49,7 +50,15 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetNewRecipeForm() throws Exception {
+    public void getRecipeNotFoundTest() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void GetNewRecipeFormTest() throws Exception {
         RecipeCommand command = new RecipeCommand();
 
         mockMvc.perform(get("/recipe/new"))
@@ -59,7 +68,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testPostNewRecipeForm() throws Exception{
+    public void PostNewRecipeFormTest() throws Exception{
         RecipeCommand command = new RecipeCommand();
         command.setId(2L);
 
@@ -74,7 +83,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetUpdateView() throws Exception {
+    public void GetUpdateViewTest() throws Exception {
         RecipeCommand command = new RecipeCommand();
         command.setId(2L);
 
